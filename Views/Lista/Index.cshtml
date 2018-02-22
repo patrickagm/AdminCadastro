@@ -1,0 +1,71 @@
+﻿@model PraticandoMVC.Models.ViewModel.ListaViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista</h2>
+
+<p>
+    @Html.ActionLink("Criar Nova", "Create")
+</p>
+
+@Model.Introducao
+
+<table class="table">
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            Ativa
+        </th>
+        <th>
+            E-mail
+        </th>
+        <th>
+            Prazo
+        </th>
+        <th>
+            Número de Tarefas
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Listas) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.Email)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prazo)
+        </td>
+        <td>
+            @{ 
+                if(item.Tarefas == null)
+                {
+                    @Html.DisplayName("0")
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Tarefas.Count)
+                }
+            }
+            
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ListaId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ListaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ListaId })
+        </td>
+    </tr>
+}
+
+</table>
